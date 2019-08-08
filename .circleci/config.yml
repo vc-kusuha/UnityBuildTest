@@ -3,7 +3,7 @@ executors:
   unity:
     docker:
       # https://hub.docker.com/r/gableroux/unity3d/tags
-      - image: gableroux/unity3d:2018.4.5f1
+      - image: gableroux/unity3d:2018.4.5f1-windows
 jobs:
   build-test:
     executor: unity
