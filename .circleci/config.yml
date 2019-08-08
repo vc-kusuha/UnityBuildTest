@@ -1,0 +1,25 @@
+﻿version: 2.1
+executors:
+  unity:
+    docker:
+      # https://hub.docker.com/r/gableroux/unity3d/tags
+      - image: gableroux/unity3d:2018.4.5f1
+jobs:
+  build-test:
+    executor: unity
+    steps:
+      - checkout
+
+      - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -noUpm -logFile -projectPath . -buildWindows64Player ./bin-win64/CISample.exe
+      - run: apt-get update
+      - run: apt-get install zip -y
+      - run: zip -r CISampleWin64Binary.zip ./bin-win64
+      - store_artifacts:
+          path: ./CISampleWin64Binary.zip
+          destination: ./CISampleWin64Binary.zip
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-test
+
