@@ -9,6 +9,8 @@ jobs:
     executor: unity
     steps:
       - checkout
+      - run: echo ${LICENSE_BASE64} | base64 --decode >> .circleci/Unity_v2018.x.ulf
+      - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .circleci/Unity_v2018.x.ulf || exit
 
       - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -noUpm -logFile -projectPath . -buildWindows64Player ./bin-win64/CISample.exe
       - run: apt-get update
