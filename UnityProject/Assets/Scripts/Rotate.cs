@@ -1,16 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public sealed class Rotate : MonoBehaviour
 {
     [SerializeField] private Vector3 _rotateEulers;
-
-#if !DEBUG
-    private void Start()
-    {
-        死
-    }
-#endif
 
     private void Update()
     {
