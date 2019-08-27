@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Player;
 using UnityEngine;
+using UnityScript.Scripting;
 
 public static class ScriptCompileTester
 {
@@ -38,10 +40,12 @@ public static class ScriptCompileTester
 
         var result = PlayerBuildInterface.CompilePlayerScripts(settings, tempBuildPath);
 
-        if (result.assemblies != null && result.assemblies.Any() && result.typeDB != null)
+        if (result.assemblies == null || !result.assemblies.Any() || result.typeDB == null)
         {
-            Debug.Log($"Compile Test Success! - BuildTarget: {settings.target}");
+            throw new Exception("compile error");
         }
+
+        Debug.Log($"Compile Test Success! - BuildTarget: {settings.target}");
 
         // NOTE: tempBuildPathにはコンパイル後のDLLが吐き出されている
         if (Directory.Exists(tempBuildPath))
